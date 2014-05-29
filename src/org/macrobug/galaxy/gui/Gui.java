@@ -22,8 +22,7 @@ public class Gui {
     JFrame frame = new JFrame("Space");
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.setSize(WIDTH, HEIGTH);
-    JPanel panel;
-    panel = new JPanel() {
+    JPanel panel = new JPanel() {
       @Override
       public void paint(Graphics g) {
         g.setColor(Color.BLACK);
