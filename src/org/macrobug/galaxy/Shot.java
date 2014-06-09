@@ -2,25 +2,35 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package org.macrobug.galaxy;
 
-import java.awt.Graphics;
+import dev.macrobug.number.Point;
+import dev.macrobug.number.Vector2d;
+import org.macrobug.galaxy.visitor.Visitor;
 
 /**
  *
- * @author Manny
+ * @author sadjehwty
+ * @param <P>
+ * @param <N>
  */
-public class Shot extends Grave{
+public class Shot<P extends Point<N>, N extends dev.macrobug.number.Number> extends Grave<P, N> {
 
-    public Shot(Point3d a,Point3d o){this(new Vettore(a,o));}
-    public Shot(Vettore v){super(true,v);}
-    
-    public void paint(Graphics g) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-    @Override
-    public String toString(){
-        return "("+getPosition().x+","+getPosition().y+","+getPosition().z+")";
-    }
+  public Shot(P a, P o) {
+    this(new Vector2d<>(a, o));
+  }
+
+  public Shot(Vector2d<P> v) {
+    super(true, v);
+  }
+
+  @Override
+  public String toString() {
+    return "(" + getPosition().toString() + ")";
+  }
+
+  @Override
+  public void accept(Visitor v) {
+    v.visit(this);
+  }
 }

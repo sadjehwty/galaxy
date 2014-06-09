@@ -6,10 +6,11 @@ package org.macrobug.galaxy.gui;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 import org.macrobug.galaxy.*;
-import static org.macrobug.galaxy.Constant.*;
-import static org.macrobug.galaxy.Vettore.depolarize;
+import org.macrobug.galaxy.visitor.PaintVisitor;
 
 public class Gui {
 
@@ -17,23 +18,33 @@ public class Gui {
    * @param args the command line arguments
    */
   public static void main(String[] args) {
-    final ArrayList<Planet> pianeti = new ArrayList<>();
-    final ArrayList<ArrayList<Point3d>> punti = new ArrayList<>();
+    final Class<dev.macrobug.number.Number<?>> klass;
+    try {
+      klass=(Class<dev.macrobug.number.Number<?>>)Class.forName(Constant.get("math.class"));
+    } catch (ClassNotFoundException ex) {
+      Logger.getLogger(Gui.class.getName()).log(Level.SEVERE, null, ex);
+      System.exit(-2);
+    }
+    final ArrayList<Planet<klass>> pianeti = new ArrayList<>();
+    final ArrayList<ArrayList<Point3d<klass>>> punti = new ArrayList<>();
+    final int WIDTH=Integer.parseInt(Constant.get("gui.WIDTH"));
+    final int HEIGTH=Integer.parseInt(Constant.get("gui.HEIGTH"));
     JFrame frame = new JFrame("Space");
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    frame.setSize(WIDTH, HEIGTH);
+    frame.setSize(WIDTH,HEIGTH);
     JPanel panel = new JPanel() {
       @Override
       public void paint(Graphics g) {
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, WIDTH, HEIGTH);
+        PaintVisitor paint=new PaintVisitor(g);
         for (Planet p : pianeti) {
-          p.paint(g);
+          p.accept(paint);
         }
         g.setColor(Color.WHITE);
-        for (ArrayList<Point3d> l : punti) {
+        for (ArrayList<Point3d<klass>> l : punti) {
           for (int i = 0; i < l.size() - 1; i++) {
-            Point3d t = l.get(i), n = l.get(i + 1);
+            Point3d<klass> t = l.get(i), n = l.get(i + 1);
             g.drawLine((int)t.x, (int)t.y, (int)n.x, (int)n.y);
           }
         }

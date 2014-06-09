@@ -2,53 +2,59 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package org.macrobug.galaxy;
 
-import java.awt.*;
+import dev.macrobug.number.*;
 import static java.lang.Math.*;
-import static org.macrobug.galaxy.Constant.*;
-import org.macrobug.galaxy.visitor.Visit;
+import java.util.Random;
 import org.macrobug.galaxy.visitor.Visitor;
 
 /**
  *
- * @author Manny
+ * @author sadjehwty
+ * @param <P>
+ * @param <N>
  */
-public class Planet extends Grave implements Visit{
-    private final int r;
-    private final double d;
+public class Planet<P extends Point<N>, N extends dev.macrobug.number.Number> extends Grave<P,N> {
 
-    public Planet(double mass,int radius,Vettore p){
-        super(false,p);
-        this.r=radius;
-        this.d=mass;
-    }
-    public Planet(){
-        this(new Point3d(nextInt(WIDTH),nextInt(HEIGTH),nextInt(DEPTH)));
-    }
-    public Planet(Point3d p){this(new Vettore(p,new Point3d(0,0,0)));}
-    public Planet(Vettore p){
-        this(nextDouble(MAX_MASS),nextInt(MAX_RADIUS),p);
-    }
+  private final int r;
+  private final N mass;
 
-    public double getMass(){return d;}
-    public int getRadius(){return r;}
+  public Planet(N mass, int radius, Vector2d<P> p) {
+    super(false, p);
+    this.r = radius;
+    this.mass = mass;
+  }
 
-    @Override
-    public double getG(){return d*r*r*PI;}
+  public Planet() {
+    this(new Vector2d<P>().newType(true));
+  }
+
+  public Planet(P p) {
+    this(new Vector2d<>(p));
+  }
+
+  public Planet(Vector2d<P> p) {
+    this(p.newType().newType(true), new Random(System.currentTimeMillis()).nextInt(), p);
+  }
+
+  public N getMass() {
+    return mass;
+  }
+
+  public int getRadius() {
+    return r;
+  }
 
   @Override
-    public void paint(Graphics g) {
-        double c=0xffffff / MAX_MASS;
-        g.setColor(new Color((int) (c * d)));
-        g.fillOval((int)getPosition().x, (int)getPosition().y, r, r);
-    }
-    
-    @Override
-    public String toString(){
-        return "[("+getX()+","+getY()+","+getZ()+"),"+getG()+"]";
-    }
+  public N getG() {
+    return (N) mass.times(r * r * PI);
+  }
+
+  @Override
+  public String toString() {
+    return "["+getPosition().toString()+","+getG()+"]";
+  }
 
   @Override
   public void accept(Visitor v) {
