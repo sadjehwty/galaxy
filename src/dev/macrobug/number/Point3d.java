@@ -32,6 +32,7 @@ public class Point3d<T extends Number> extends Point<T> {
     z=p.getZ();
   }
   
+  public void setZ(T z){this.z=z;}
   public T getZ() {
     return z;
   }
@@ -76,9 +77,10 @@ public class Point3d<T extends Number> extends Point<T> {
    return new Point3d(q.times(phi.cos()),q.times(phi.sin()),rho.times(sigma.sin()));
    }*/
 
-  public static <T extends Number> Point3d<T> depolarize(Point3d<T> p) {
-    T q = (T) p.getX().times(p.getZ().cos());
-    return (Point3d<T>) new Point3d<>(q.times(p.getY().cos()), q.times(p.getY().sin()), p.getX().times(p.getZ().sin()));
+  @Override
+  public Point3d<T> depolar() {
+    T q = (T) getX().times(getZ().cos());
+    return (Point3d<T>) new Point3d<>(q.times(getY().cos()), q.times(getY().sin()), getX().times(getZ().sin()));
   }
 
   @Override
@@ -92,5 +94,23 @@ public class Point3d<T extends Number> extends Point<T> {
   @Override
   public Point3d<T> clone_() {
     return new Point3d(this);
+  }
+
+  @Override
+  public Point3d<T> polar(Point<T> p) {
+    return polar(new Point3d<>(p.getX(), p.getY(), newType(0.0)));
+  }
+  public Point3d<T> polar(Point3d<T> p){
+    T dx=(T) getX().sub(p.getX());
+    T dy=(T) getY().sub(p.getY());
+    T dz=(T) getZ().sub(p.getZ());
+    T q=(T) dx.pow(2).add(dy.pow(2)).pow(0.5);
+    T r=(T) q.pow(2).add(z.pow(2)).pow(0.5);
+    return (Point3d<T>) new Point3d<>(r,dy.div(dx).atan(),dz.div(q).atan());
+  }
+
+  @Override
+  public Point3d<T> times(double d) {
+    return (Point3d<T>) new Point3d<>(getX().times(d),getY().times(d),getZ().times(d));
   }
 }

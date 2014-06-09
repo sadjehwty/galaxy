@@ -8,7 +8,6 @@ package dev.macrobug.number;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
-import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -23,6 +22,8 @@ public abstract class Point<T extends Number> {
   public abstract Point sub(Point<T> t);
   public abstract T distanceSq(Point<T> t);
   protected T x,y;
+  public final void setX(T x){this.x=x;}
+  public final void setY(T y){this.y=y;}
   public final T getX(){return x;}
   public final T getY(){return y;}
   public Point(Point<T> t){
@@ -66,4 +67,7 @@ public abstract class Point<T extends Number> {
   }
   
   public abstract Point<T> clone_();
+  public abstract Point<T> polar(Point<T> p);
+  public abstract Point<T> depolar();
+  public abstract Point<T> times(double d);
 }

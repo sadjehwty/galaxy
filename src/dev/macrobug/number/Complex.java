@@ -9,7 +9,6 @@ public class Complex extends Number{
   public static final Complex ONE=new Complex(1);
   public static final Complex I=new Complex(0,1);
 
-  public double getReal(){return real;}
   public double getImage(){return imag;}
   
   public double abs(){
