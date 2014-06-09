@@ -1,4 +1,7 @@
 package dev.macrobug.number;
+
+import java.util.Random;
+
 public class Complex extends Number{
   private final double imag;
   
@@ -98,5 +101,10 @@ public class Complex extends Number{
   @Override
   public String toString(){
     return "("+real+"+"+imag+"i)";
+  }
+  @Override
+  public Complex rand(){
+    Random r=new Random(System.currentTimeMillis());
+    return new Complex(r.nextDouble()*java.lang.Double.MAX_VALUE-java.lang.Double.MIN_VALUE,r.nextDouble()*java.lang.Double.MAX_VALUE-java.lang.Double.MIN_VALUE);
   }
 }

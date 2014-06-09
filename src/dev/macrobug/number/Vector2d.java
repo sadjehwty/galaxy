@@ -27,7 +27,12 @@ public class Vector2d<T extends Point> {
     this.o=o;
     a=newType();
   }
-
+  
+  public Vector2d(){
+    o=newType();
+    a=newType();
+  }
+  
   public T getOrigin() {
     return a;
   }
@@ -52,6 +57,16 @@ public class Vector2d<T extends Point> {
     T ret = null;
     try {
       ret = ((Class<T>) paramType.getActualTypeArguments()[0]).getConstructor().newInstance();
+    } catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
+      Logger.getLogger(Point.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    return ret;
+  }
+  public final T newType(boolean rand) {
+    ParameterizedType paramType = (ParameterizedType) getClass().getGenericSuperclass();
+    T ret = null;
+    try {
+      ret = ((Class<T>) paramType.getActualTypeArguments()[0]).getConstructor(java.lang.Boolean.class).newInstance(rand);
     } catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
       Logger.getLogger(Point.class.getName()).log(Level.SEVERE, null, ex);
     }

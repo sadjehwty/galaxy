@@ -1,4 +1,7 @@
 package dev.macrobug.number;
+
+import java.util.Random;
+
 public class Double extends Number{
   public static final Double ZERO=new Double(0);
   
@@ -58,4 +61,10 @@ public class Double extends Number{
   
   @Override
   public String toString(){return real+"";}
+  
+  @Override
+  public Double rand(){
+    Random r=new Random(System.currentTimeMillis());
+    return new Double(r.nextDouble()*java.lang.Double.MAX_VALUE-java.lang.Double.MIN_VALUE);
+  }
 }

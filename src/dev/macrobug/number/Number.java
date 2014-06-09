@@ -22,4 +22,5 @@ public abstract class Number{
   public abstract Number log();
   public abstract Number sin();
   public abstract Number cos();
+  public abstract Number rand();
 }
