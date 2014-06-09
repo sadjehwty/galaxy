@@ -5,20 +5,32 @@
 
 package org.macrobug.galaxy;
 
-import java.util.Random;
+import java.io.*;
+import java.util.Properties;
 
 /**
  *@SuppressWarnings({"empty-statement})
  * @author Manny
  */
 public class Constant {
-    public static final double K=.6;
-    public static final int WIDTH=640;
-    public static final int HEIGTH=480;
-    public static final int DEPTH=480;
-    public static final double MAX_MASS=100;
-    public static final int MAX_RADIUS=50;
-    public static final Random r=new Random(System.currentTimeMillis());
-    public static int nextInt(int n){return r.nextInt(n);}
-    public static double nextDouble(double d){return r.nextDouble()*d;}
+  private static Properties prop;
+  public static String get(String s){
+    if(prop==null){
+      prop=new Properties();
+      InputStream input=null;
+      try{
+        String filename = "config.properties";
+        input = Constant.class.getClassLoader().getResourceAsStream(filename);
+        prop.load(input);
+      }catch(IOException ioe){
+        System.exit(-1);
+      }finally{
+        if(input!=null){
+          try { input.close(); }
+          catch (IOException e) {}
+        }
+      }
+    }
+    return prop.getProperty(s);
+  }
 }
