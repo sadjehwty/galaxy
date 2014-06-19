@@ -6,8 +6,6 @@ package org.macrobug.galaxy.gui;
 
 import java.util.ArrayList;
 import org.macrobug.galaxy.*;
-import static org.macrobug.galaxy.Constant.*;
-import static org.macrobug.galaxy.Vettore.depolarize;
 
 /**
  *

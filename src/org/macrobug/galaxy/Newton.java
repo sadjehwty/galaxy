@@ -34,8 +34,11 @@ public class Newton<P extends Point<N>, N extends dev.macrobug.number.Number> {
     s.setPosition(s.getPosition().add(s.getVelocity().times(hz)).add(a.times(Math.pow(hz, 2)/2)));
     s.setVelocity(s.getVelocity().add(a.times(hz)));
     for(Planet<P,N> p:list)
-      if(p.isHit((P) s.getPosition()))
+      if(p.isHit((P) s.getPosition())){
+        p.hit(s); // TODO lo dovrebbe fare qualcun'altro
         return false;
+      }
+    // TODO se fuori dallo schermo false
     return true;
   }
 }

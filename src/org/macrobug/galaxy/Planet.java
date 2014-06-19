@@ -64,4 +64,7 @@ public class Planet<P extends Point<N>, N extends dev.macrobug.number.Number> ex
   public boolean isHit(P p){
     return Math.floor(getPosition().distanceSq(p).pow(0.5).getReal())<=r;
   }
+  public void hit(Shot s){
+    /* TODO */
+  }
 }
