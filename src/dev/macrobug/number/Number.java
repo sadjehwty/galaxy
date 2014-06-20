@@ -24,4 +24,7 @@ public abstract class Number{
   public abstract Number cos();
   public abstract Number rand();
   public double getReal(){return real;}
+  public int toInt(){
+    return (int) Math.round(real);
+  }
 }

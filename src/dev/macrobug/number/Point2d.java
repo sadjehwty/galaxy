@@ -7,53 +7,55 @@
 package dev.macrobug.number;
 
 
-public class Point2d<T extends Number> extends Point<T> {
+public class Point2d extends Point {
 
   @Override
-  public void translate(Point<T> t) {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+  public void translate(Point p) {
+    Point2d t = add(p);
+    x = t.getX();
+    y = t.getY();
   }
 
   @Override
-  public Point add(Point<T> t) {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+  public Point2d add(Point p) {
+    return new Point2d(x.add(p.getX()), y.add(p.getY()));
   }
 
   @Override
-  public Point sub(Point<T> t) {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+  public Point2d sub(Point p) {
+    return new Point2d(x.sub(p.getX()), y.sub(p.getY()));
   }
 
   @Override
-  public T distanceSq(Point<T> t) {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+  public Number distanceSq(Point position) {
+    Number dx = position.getX().sub(getX());
+    Number dy = position.getY().sub(getY());
+    return  dx.times(dx).add(dy.times(dy));
   }
 
   @Override
-  public Point<T> clone_() {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+  public Point2d diffPolar(Point p) {
+    Number dx= getX().sub(p.getX());
+    Number dy= getY().sub(p.getY());
+    Number r= dx.pow(2).add(dy.pow(2)).pow(0.5);
+    return new Point2d(r,dy.div(dx).atan());
   }
 
   @Override
-  public Point<T> polar(Point<T> p) {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+  public Point2d depolar() {
+    return new Point2d(getX().times(getY().cos()),getX().times(getY().sin()));
   }
 
   @Override
-  public Point<T> depolar() {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+  public Point2d times(double d) {
+    return new Point2d(getX().times(d),getY().times(d));
   }
 
-  @Override
-  public Point<T> times(double d) {
-    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-  }
-
-  public Point2d(Point<T> t) {
+  public Point2d(Point t) {
     super(t);
   }
 
-  public Point2d(T x, T y) {
+  public Point2d(Number x, Number y) {
     super(x, y);
   }
 

@@ -6,6 +6,7 @@
 
 package org.macrobug.galaxy.visitor;
 
+import dev.macrobug.galaxy.factory.NumberFactory;
 import dev.macrobug.number.Point;
 import org.macrobug.galaxy.Constant;
 import org.macrobug.galaxy.Planet;
@@ -22,9 +23,10 @@ public class AccelerationVisitor implements Visitor {
   @Override
   public void visit(Planet visit) {
     dev.macrobug.number.Number distance=s.distanceSq(visit.getPosition());
-    dev.macrobug.number.Number K=visit.getPosition().newType(java.lang.Double.parseDouble(Constant.get("physics.K")));
+    NumberFactory nf=new NumberFactory();
+    dev.macrobug.number.Number K=nf.create(java.lang.Double.parseDouble(Constant.get("physics.K")));
     dev.macrobug.number.Number a=K.times(visit.getG()).div(distance);
-    Point polar=s.polar(visit.getPosition());
+    Point polar=s.diffPolar(visit.getPosition());
     polar.setX(a);
     s=polar.depolar();
   }

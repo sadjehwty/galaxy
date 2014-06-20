@@ -6,68 +6,44 @@
 
 package dev.macrobug.number;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.ParameterizedType;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import dev.macrobug.galaxy.factory.NumberFactory;
 
 /**
  *
  * @author sadjehwty
  * @param <T>
  */
-public abstract class Point<T extends Number> {
-  public abstract void translate(Point<T> t);
-  public abstract Point add(Point<T> t);
-  public abstract Point sub(Point<T> t);
-  public abstract T distanceSq(Point<T> t);
-  protected T x,y;
-  public final void setX(T x){this.x=x;}
-  public final void setY(T y){this.y=y;}
-  public final T getX(){return x;}
-  public final T getY(){return y;}
-  public Point(Point<T> t){
+public abstract class Point{
+  public abstract void translate(Point t);
+  public abstract Point add(Point t);
+  public abstract Point sub(Point t);
+  public abstract Number distanceSq(Point t);
+  protected Number x,y;
+  public final void setX(Number x){this.x=x;}
+  public final void setY(Number y){this.y=y;}
+  public final Number getX(){return x;}
+  public final Number getY(){return y;}
+  public Point(Point t){
     x=t.getX();
     y=t.getY();
   }
-  public Point(T x, T y){
+  public Point(Number x, Number y){
     this.x=x;
     this.y=y;
   }
   public Point(){
-    x=newType(0.0);
-    y=newType(0.0);
+    NumberFactory nf=new NumberFactory();
+    x=nf.create(0.0);
+    y=nf.create(0.0);
   }
   public Point(boolean rand){
     this();
     if(rand){
-      x=(T) getX().rand();
-      y=(T) getY().rand();
+      x=getX().rand();
+      y=getY().rand();
     }
   }
-  public final T newType(double d) {
-    ParameterizedType paramType = (ParameterizedType) getClass().getGenericSuperclass();
-    T ret = null;
-    try {
-      ret = ((Class<T>) paramType.getActualTypeArguments()[0]).getConstructor(java.lang.Double.class).newInstance(d);
-    } catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
-      Logger.getLogger(Point.class.getName()).log(Level.SEVERE, null, ex);
-    }
-    return ret;
-  }
-  public final T newType(boolean rand) {
-    ParameterizedType paramType = (ParameterizedType) getClass().getGenericSuperclass();
-    T ret = null;
-    try {
-      ret = ((Class<T>) paramType.getActualTypeArguments()[0]).getConstructor(java.lang.Boolean.class).newInstance(rand);
-    } catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
-      Logger.getLogger(Point.class.getName()).log(Level.SEVERE, null, ex);
-    }
-    return ret;
-  }
-  
-  public abstract Point<T> clone_();
-  public abstract Point<T> polar(Point<T> p);
-  public abstract Point<T> depolar();
-  public abstract Point<T> times(double d);
+  public abstract Point diffPolar(Point p);
+  public abstract Point depolar();
+  public abstract Point times(double d);
 }

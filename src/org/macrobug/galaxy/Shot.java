@@ -11,16 +11,14 @@ import org.macrobug.galaxy.visitor.Visitor;
 /**
  *
  * @author sadjehwty
- * @param <P>
- * @param <N>
  */
-public class Shot<P extends Point<N>, N extends dev.macrobug.number.Number> extends Grave<P, N> {
+public class Shot extends Grave {
 
-  public Shot(P a, P o) {
-    this(new Vector2d<>(a, o));
+  public Shot(Point a, Point o) {
+    this(new Vector2d(a, o));
   }
 
-  public Shot(Vector2d<P> v) {
+  public Shot(Vector2d v) {
     super(true, v);
   }
 

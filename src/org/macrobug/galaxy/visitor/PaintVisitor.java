@@ -8,6 +8,7 @@ package org.macrobug.galaxy.visitor;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import org.macrobug.galaxy.Constant;
 import org.macrobug.galaxy.Planet;
 import org.macrobug.galaxy.Shot;
 
@@ -24,9 +25,9 @@ public class PaintVisitor implements Visitor{
   
   @Override
   public void visit(Planet visit) {
-    double c=0xffffff / MAX_MASS;
-    g.setColor(new Color((int) (c * d)));
-    g.fillOval((int)getPosition().x, (int)getPosition().y, r, r);
+    double c=0xffffff / Double.parseDouble(Constant.get("physics.MAX_MASS"));
+    g.setColor(new Color(visit.getG().times(c).toInt()));
+    g.fillOval(visit.getPosition().getX().toInt(), visit.getPosition().getY().toInt(), visit.getRadius(), visit.getRadius());
   }
 
   @Override

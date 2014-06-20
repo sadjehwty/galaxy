@@ -106,4 +106,6 @@ public class Complex extends Number{
     Random r=new Random(System.currentTimeMillis());
     return new Complex(r.nextDouble()*java.lang.Double.MAX_VALUE-java.lang.Double.MIN_VALUE,r.nextDouble()*java.lang.Double.MAX_VALUE-java.lang.Double.MIN_VALUE);
   }
+  
+  
 }

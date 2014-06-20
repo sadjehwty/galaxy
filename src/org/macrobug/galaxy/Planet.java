@@ -4,6 +4,8 @@
  */
 package org.macrobug.galaxy;
 
+import dev.macrobug.galaxy.factory.NumberFactory;
+import dev.macrobug.galaxy.factory.PointFactory;
 import dev.macrobug.number.*;
 import static java.lang.Math.*;
 import java.util.Random;
@@ -12,33 +14,31 @@ import org.macrobug.galaxy.visitor.Visitor;
 /**
  *
  * @author sadjehwty
- * @param <P>
- * @param <N>
  */
-public class Planet<P extends Point<N>, N extends dev.macrobug.number.Number> extends Grave<P,N> {
+public class Planet extends Grave {
 
   private final int r;
-  private final N mass;
+  private final dev.macrobug.number.Number mass;
 
-  public Planet(N mass, int radius, Vector2d<P> p) {
+  public Planet(dev.macrobug.number.Number mass, int radius, Vector2d p) {
     super(false, p);
     this.r = radius;
     this.mass = mass;
   }
 
   public Planet() {
-    this(new Vector2d<P>().newType(true));
+    this(new PointFactory().createRand());
   }
 
-  public Planet(P p) {
-    this(new Vector2d<>(p));
+  public Planet(Point p) {
+    this(new Vector2d(p));
   }
 
-  public Planet(Vector2d<P> p) {
-    this(p.newType().newType(true), new Random(System.currentTimeMillis()).nextInt(), p);
+  public Planet(Vector2d p) {
+    this(new NumberFactory().createRand(), new Random(System.currentTimeMillis()).nextInt(), p);
   }
 
-  public N getMass() {
+  public dev.macrobug.number.Number getMass() {
     return mass;
   }
 
@@ -47,8 +47,8 @@ public class Planet<P extends Point<N>, N extends dev.macrobug.number.Number> ex
   }
 
   @Override
-  public N getG() {
-    return (N) mass.times(r * r * PI);
+  public dev.macrobug.number.Number getG() {
+    return mass.times(r * r * PI);
   }
 
   @Override
@@ -61,7 +61,7 @@ public class Planet<P extends Point<N>, N extends dev.macrobug.number.Number> ex
     v.visit(this);
   }
   
-  public boolean isHit(P p){
+  public boolean isHit(Point p){
     return Math.floor(getPosition().distanceSq(p).pow(0.5).getReal())<=r;
   }
   public void hit(Shot s){
