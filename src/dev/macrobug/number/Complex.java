@@ -68,7 +68,8 @@ public class Complex extends Number{
 
   @Override
   public Complex atan() {
-    return new Complex(0,0.5).times(ONE.sub(times(I)).log().sub(ONE.add(times(I)).log()));
+    Complex i=times(I);
+    return ONE.sub(i).log().sub(ONE.add(i).log()).times(new Complex(0,0.5));
   }
 
   @Override
@@ -86,7 +87,7 @@ public class Complex extends Number{
     double eb=Math.pow(Math.E, imag);
     double _eb=1/eb;
     Complex q=new Complex(_eb*Math.cos(real),_eb*Math.sin(real)).sub(new Complex(eb*Math.cos(-real),eb*Math.sin(-real)));
-    return q.div(new Complex(0,0.5));
+    return q.div(new Complex(0,2));
   }
 
   @Override
@@ -94,7 +95,7 @@ public class Complex extends Number{
     double eb=Math.pow(Math.E, imag);
     double _eb=1/eb;
     Complex q=new Complex(_eb*Math.cos(real),_eb*Math.sin(real)).add(new Complex(eb*Math.cos(-real),eb*Math.sin(-real)));
-    return q.div(new Complex(0.5,0));
+    return q.div(new Complex(2,0));
   }
   
   @Override
