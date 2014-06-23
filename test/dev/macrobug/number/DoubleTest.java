@@ -186,7 +186,7 @@ public class DoubleTest {
   @Test
   public void testToString() {
     System.out.println("toString");
-     double n=r.nextDouble();
+    double n=r.nextDouble();
     Double a=new Double(n);
     String expResult = ""+n;
     String result = a.toString();
