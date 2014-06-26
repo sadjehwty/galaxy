@@ -37,7 +37,7 @@ public class Point2d extends Point {
   public Point2d diffPolar(Point p) {
     Number dx= getX().sub(p.getX());
     Number dy= getY().sub(p.getY());
-    Number r= dx.pow(2).add(dy.pow(2)).pow(0.5);
+    Number r= distanceSq(p).pow(0.5);
     return new Point2d(r,dy.div(dx).atan());
   }
 
