@@ -33,7 +33,7 @@ public class Cli {
           do {
             System.out.println(s);
             for (Planet ps : pianeti) {
-              s.getVector().add_(s.getDistance(ps));
+              s.getVector().translate(s.getDistance(ps));
             }
             s.getPosition().translate(s.getVelocity().x, s.getVelocity().y, s.getVelocity().z);
           } while (s.getPosition().x >= 0

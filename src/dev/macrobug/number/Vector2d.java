@@ -5,10 +5,6 @@
 package dev.macrobug.number;
 
 import dev.macrobug.galaxy.factory.PointFactory;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.ParameterizedType;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -50,7 +46,7 @@ public class Vector2d {
     return new Vector2d(p);
   }
 
-  public Vector2d add_(Vector2d v) {
+  public Vector2d translate(Vector2d v) {
     o.translate(v.getValue().sub(v.getOrigin()));
     return this;
   }

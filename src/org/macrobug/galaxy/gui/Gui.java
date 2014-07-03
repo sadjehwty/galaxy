@@ -64,7 +64,7 @@ public class Gui {
           v.add((Point3d) s.getPosition().clone());
           do {
             for (Planet ps : pianeti) {
-              s.getVector().add_(s.getDistance(ps));
+              s.getVector().translate(s.getDistance(ps));
             }
             s.getPosition().translate(s.getVelocity().x, s.getVelocity().y, s.getVelocity().z);
             v.add((Point3d) s.getPosition().clone());
