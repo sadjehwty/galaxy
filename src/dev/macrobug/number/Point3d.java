@@ -48,6 +48,9 @@ public class Point3d extends Point {
 
   @Override
   public void translate(Point p) {
+    translate(new Point3d(p));
+  }
+  public void translate(Point3d p){
     Point3d t = add(p);
     x = t.getX();
     y = t.getY();
