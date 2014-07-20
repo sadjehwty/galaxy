@@ -563,4 +563,60 @@ public class ComplexTest {
     assertEquals(expResult, result.getClass());
   }
 
+  /**
+   * Test of rand method, of class Complex.
+   */
+  @Test
+  public void testRand_0args() {
+    System.out.println("rand");
+    Complex expResult = null;
+    Complex result = Complex.rand();
+    assertEquals(expResult, result);
+    // TODO review the generated test code and remove the default call to fail.
+    fail("The test case is a prototype.");
+  }
+
+  /**
+   * Test of rand method, of class Complex.
+   */
+  @Test
+  public void testRand_double() {
+    System.out.println("rand");
+    double max = 0.0;
+    Complex expResult = null;
+    Complex result = Complex.rand(max);
+    assertEquals(expResult, result);
+    // TODO review the generated test code and remove the default call to fail.
+    fail("The test case is a prototype.");
+  }
+
+  /**
+   * Test of rand method, of class Complex.
+   */
+  @Test
+  public void testRand_double_double() {
+    System.out.println("rand");
+    double min = 0.0;
+    double max = 0.0;
+    Complex expResult = null;
+    Complex result = Complex.rand(min, max);
+    assertEquals(expResult, result);
+    // TODO review the generated test code and remove the default call to fail.
+    fail("The test case is a prototype.");
+  }
+
+  /**
+   * Test of parse method, of class Complex.
+   */
+  @Test
+  public void testParse() {
+    System.out.println("parse");
+    String s = "0.123i-32.5435";
+    Complex expResult = new Complex(-32.5435,0.123);
+    Complex result = Complex.parse(s);
+    double delta=Math.pow(10, 10);
+    assertEquals(expResult.getReal(), result.getReal(), delta);
+    assertEquals(expResult.getImage(), result.getImage(), delta);
+  }
+
 }

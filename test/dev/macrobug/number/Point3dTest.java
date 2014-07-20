@@ -215,13 +215,11 @@ public class Point3dTest {
   @Test
   public void testDistanceSq_Point() {
     System.out.println("distanceSq");
-    Point position = null;
-    Point3d instance = new Point3d();
-    Number expResult = null;
+    Point2d position = new Point2d(new Double(0),new Double(0));
+    Point3d instance = new Point3d(new Double(3),new Double(4),new Double(5));
+    Number expResult = new Double(5*Math.pow(2, 2));
     Number result = instance.distanceSq(position);
-    assertEquals(expResult, result);
-    // TODO review the generated test code and remove the default call to fail.
-    fail("The test case is a prototype.");
+    assertEquals(expResult.getReal(), result.getReal(),0.0);
   }
 
   /**
@@ -229,14 +227,11 @@ public class Point3dTest {
    */
   @Test
   public void testDistanceSq_Point3d() {
-    System.out.println("distanceSq");
-    Point3d position = null;
-    Point3d instance = new Point3d();
-    Number expResult = null;
+    Point3d position = new Point3d(new Double(0),new Double(0),new Double(0));
+    Point3d instance = new Point3d(new Double(3),new Double(4),new Double(5));
+    Number expResult = new Double(5*Math.pow(2, 2));
     Number result = instance.distanceSq(position);
-    assertEquals(expResult, result);
-    // TODO review the generated test code and remove the default call to fail.
-    fail("The test case is a prototype.");
+    assertEquals(expResult.getReal(), result.getReal(),0.0);
   }
 
   /**
@@ -245,8 +240,8 @@ public class Point3dTest {
   @Test
   public void testDepolar() {
     System.out.println("depolar");
-    Point3d instance = new Point3d();
-    Point3d expResult = null;
+    Point3d instance = new Point3d(new Double(4),new Double(Math.PI/4),new Double(Math.PI/6));
+    Point3d expResult = new Point3d(new Double(Math.pow(6, 2)),new Double(Math.pow(6, 2)),new Double(2));
     Point3d result = instance.depolar();
     assertEquals(expResult, result);
     // TODO review the generated test code and remove the default call to fail.
@@ -331,13 +326,11 @@ public class Point3dTest {
   @Test
   public void testDiffPolar_Point() {
     System.out.println("diffPolar");
-    Point p = null;
-    Point3d instance = new Point3d();
-    Point3d expResult = null;
+    Point2d p = new Point2d(new Double(5),new Double(-3));
+    Point3d instance = new Point3d(new Double(3),new Double(4),new Double(5));
+    Point3d expResult = new Point3d(new Double(Math.sqrt(76)),new Double(-2.8632929945846817),new Double(-0.6108199461345895));
     Point3d result = instance.diffPolar(p);
     assertEquals(expResult, result);
-    // TODO review the generated test code and remove the default call to fail.
-    fail("The test case is a prototype.");
   }
 
   /**
@@ -346,13 +339,11 @@ public class Point3dTest {
   @Test
   public void testDiffPolar_Point3d() {
     System.out.println("diffPolar");
-    Point3d p = null;
-    Point3d instance = new Point3d();
-    Point3d expResult = null;
+    Point3d p = new Point3d(new Double(5),new Double(-3), new Double(0.5));
+    Point3d instance = new Point3d(new Double(3),new Double(4),new Double(5));
+    Point3d expResult = new Point3d(new Double(Math.sqrt(71.25)),new Double(-2.8632929945846817),new Double(-0.5622769655682353));
     Point3d result = instance.diffPolar(p);
     assertEquals(expResult, result);
-    // TODO review the generated test code and remove the default call to fail.
-    fail("The test case is a prototype.");
   }
 
   /**
