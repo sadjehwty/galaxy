@@ -4,8 +4,8 @@
  */
 package org.macrobug.galaxy;
 
-import dev.macrobug.galaxy.factory.NumberFactory;
-import dev.macrobug.galaxy.factory.PointFactory;
+import dev.macrobug.number.factory.NumberFactory;
+import dev.macrobug.number.factory.PointFactory;
 import dev.macrobug.number.*;
 import static java.lang.Math.*;
 import java.util.Random;
@@ -19,23 +19,25 @@ public class Planet extends Grave {
 
   private final int r;
   private final dev.macrobug.number.Number mass;
+  private final PointFactory pf;
 
-  public Planet(dev.macrobug.number.Number mass, int radius, Vector2d p) {
+  public Planet(PointFactory pf,dev.macrobug.number.Number mass, int radius, Vector2d p) {
     super(false, p);
     this.r = radius;
     this.mass = mass;
+    this.pf=pf;
   }
 
-  public Planet() {
-    this(new PointFactory().createRand());
+  public Planet(PointFactory pf) {
+    this(pf,pf.createRand());
   }
 
-  public Planet(Point p) {
-    this(new Vector2d(p));
+  public Planet(PointFactory pf,Point p) {
+    this(pf,new Vector2d(p));
   }
 
-  public Planet(Vector2d p) {
-    this(new NumberFactory().createRand(), new Random(System.currentTimeMillis()).nextInt(), p);
+  public Planet(PointFactory pf,Vector2d p) {
+    this(pf,pf.getNumberFactory().createRand(), new Random(System.currentTimeMillis()).nextInt(), p);
   }
 
   public dev.macrobug.number.Number getMass() {

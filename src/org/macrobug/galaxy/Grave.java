@@ -5,7 +5,7 @@
 
 package org.macrobug.galaxy;
 
-import dev.macrobug.galaxy.factory.NumberFactory;
+import dev.macrobug.number.factory.NumberFactory;
 import dev.macrobug.number.*;
 import org.macrobug.galaxy.visitor.Visit;
 /**

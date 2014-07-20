@@ -6,7 +6,7 @@
 
 package org.macrobug.galaxy.visitor;
 
-import dev.macrobug.galaxy.factory.NumberFactory;
+import dev.macrobug.number.factory.NumberFactory;
 import dev.macrobug.number.Point;
 import org.macrobug.galaxy.Constant;
 import org.macrobug.galaxy.Planet;
