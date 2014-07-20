@@ -4,7 +4,7 @@
  */
 package dev.macrobug.number;
 
-import dev.macrobug.galaxy.factory.PointFactory;
+import dev.macrobug.number.factory.PointFactory;
 
 /**
  *
@@ -12,25 +12,19 @@ import dev.macrobug.galaxy.factory.PointFactory;
  */
 public class Vector2d {
 
-  private final Point a, o;
+  private Point a, o;
+  private final PointFactory pf;
 
   public Vector2d(Point a, Point o) {
+    this(o);
     this.a = a;
-    this.o = o;
   }
 
   public Vector2d(Point o){
-    this.o=o;
-    PointFactory pf=new PointFactory();
+    this.o = o;
+    pf=new PointFactory(o.getClass(),o.nf);
     a=pf.create();
   }
-  
-  public Vector2d(){
-    PointFactory pf=new PointFactory();
-    o=pf.create();
-    a=pf.create();
-  }
-  
   public Point getOrigin() {
     return a;
   }
@@ -40,7 +34,6 @@ public class Vector2d {
   }
 
   public Vector2d add(Vector2d v) {
-    PointFactory pf=new PointFactory();
     Point p=pf.create(o);
     p.translate(v.getValue().sub(v.getOrigin()));
     return new Vector2d(p);

@@ -22,7 +22,7 @@ public abstract class Number{
   public abstract Number log();
   public abstract Number sin();
   public abstract Number cos();
-  public abstract Number rand();
+  //public abstract Number rand();
   public double getReal(){return real;}
   public int toInt(){
     return (int) Math.round(real);

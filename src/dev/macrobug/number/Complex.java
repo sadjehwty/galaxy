@@ -1,6 +1,9 @@
 package dev.macrobug.number;
 
 import java.util.Random;
+import java.util.StringTokenizer;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Complex extends Number{
   private final double imag;
@@ -100,13 +103,31 @@ public class Complex extends Number{
   
   @Override
   public String toString(){
-    return "("+real+"+"+imag+"i)";
+    StringBuilder sb=new StringBuilder();
+    sb.append('(');
+    sb.append(real);
+    if(imag>=0) sb.append('+');
+    sb.append(imag);
+    sb.append("i)");
+    return sb.toString();
   }
-  @Override
-  public Complex rand(){
+  
+  public static Complex rand(){
+    return rand(java.lang.Double.MAX_VALUE);
+  }
+  public static Complex rand(double max){
+    return rand(0,max);
+  }
+  public static Complex rand(double min, double max){
     Random r=new Random(System.currentTimeMillis());
-    return new Complex(r.nextDouble()*java.lang.Double.MAX_VALUE-java.lang.Double.MIN_VALUE,r.nextDouble()*java.lang.Double.MAX_VALUE-java.lang.Double.MIN_VALUE);
+    return new Complex(r.nextDouble()*max-min,r.nextDouble()*max-min);
   }
   
-  
+  public static Complex parse(String s){
+    Pattern p=Pattern.compile("^((?<r>([-+]?(\\d+\\.?\\d*|\\d*\\.?\\d+)([Ee][-+]?[0-2]?\\d{1,2})?[r]?))|(?<i>([-+]?((\\d+\\.?\\d*|\\d*\\.?\\d+)([Ee][-+]?[0-2]?\\d{1,2})?)?[i]))|(?<r>([-+]?(\\d+\\.?\\d*|\\d*\\.?\\d+)([Ee][-+]?[0-2]?\\d{1,2})?[r]?))(?<i>([-+]((\\d+\\.?\\d*|\\d*\\.?\\d+)([Ee][-+]?[0-2]?\\d{1,2})?)?[i])))$");
+    Matcher m=p.matcher(s);
+    String real=m.group("r");
+    String imag=m.group("i");
+    return new Complex(java.lang.Double.parseDouble(real),java.lang.Double.parseDouble(imag));
+  }
 }

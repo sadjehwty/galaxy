@@ -6,9 +6,20 @@
 
 package dev.macrobug.number;
 
+import dev.macrobug.number.factory.NumberFactory;
+
 
 public class Point2d extends Point {
 
+  public Point2d(Point2d t) {
+    super(t);
+  }
+  public Point2d(NumberFactory nf){
+    super(nf);
+  }
+  public Point2d(Number x,Number y){
+    super(x,y);
+  }
   @Override
   public void translate(Point p) {
     Point2d t = add(p);
@@ -51,19 +62,10 @@ public class Point2d extends Point {
     return new Point2d(getX().times(d),getY().times(d));
   }
 
-  public Point2d(Point t) {
-    super(t);
+  public static Point2d rand(NumberFactory nf, double max){
+    return rand(nf,0,max);
   }
-
-  public Point2d(Number x, Number y) {
-    super(x, y);
+  public static Point2d rand(NumberFactory nf, double min,double max){
+    return new Point2d(nf.rand(min,max),nf.rand(min,max));
   }
-
-  public Point2d() {
-  }
-
-  public Point2d(boolean rand) {
-    super(rand);
-  }
-  
 }

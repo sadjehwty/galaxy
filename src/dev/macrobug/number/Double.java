@@ -1,6 +1,7 @@
 package dev.macrobug.number;
 
 import java.util.Random;
+import static java.lang.Double.parseDouble;
 
 public class Double extends Number{
   public static final Double ZERO=new Double(0);
@@ -62,9 +63,19 @@ public class Double extends Number{
   @Override
   public String toString(){return real+"";}
   
-  @Override
-  public Double rand(){
+  public static Double rand(){
+    return rand(java.lang.Double.MAX_VALUE);
+  }
+  
+  public static Double rand(double max){
+    return rand(0,max);
+  }
+  public static Double rand(double min, double max){
     Random r=new Random(System.currentTimeMillis());
-    return new Double(r.nextDouble()*java.lang.Double.MAX_VALUE-java.lang.Double.MIN_VALUE);
+    return new Double(r.nextDouble()*max-min);
+  }
+  
+  public static Double parse(String s){
+    return new Double(parseDouble(s));
   }
 }

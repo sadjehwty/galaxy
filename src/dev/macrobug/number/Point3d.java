@@ -4,7 +4,7 @@
  */
 package dev.macrobug.number;
 
-import dev.macrobug.galaxy.factory.NumberFactory;
+import dev.macrobug.number.factory.NumberFactory;
 
 /**
  *
@@ -13,12 +13,6 @@ public class Point3d extends Point {
 
   protected Number z;
   
-  public Point3d(){
-    super();
-    NumberFactory nf=new NumberFactory();
-    z=nf.create(0.0);
-  }
-  
   public Point3d(Number x, Number y, Number z) {
     super(x, y);
     this.z = z;
@@ -26,7 +20,6 @@ public class Point3d extends Point {
 
   public Point3d(Point p) {
     super(p);
-    NumberFactory nf=new NumberFactory();
     z=nf.create(0.0);
   }
   public Point3d(Point3d p){
@@ -38,14 +31,7 @@ public class Point3d extends Point {
   public Number getZ() {
     return z;
   }
-  /*
-   public void translate(Number dx, Number dy,Number dz) {
-   x=x.add(dx);
-   y=y.add(dy);
-   z=z.add(dz);
-   }
-   */
-
+  
   @Override
   public void translate(Point p) {
     translate(new Point3d(p));
@@ -59,7 +45,6 @@ public class Point3d extends Point {
   
   @Override
   public Point3d add(Point p) {
-    NumberFactory nf=new NumberFactory();
     return add(new Point3d(p.getX(), p.getY(), nf.create(0.0)));
   }
   public Point3d add(Point3d p){
@@ -68,7 +53,6 @@ public class Point3d extends Point {
 
   @Override
   public Number distanceSq(Point position) {
-    NumberFactory nf=new NumberFactory();
     return distanceSq(new Point3d(position.getX(), position.getY(), nf.create(0.0)));
   }
   public Number distanceSq(Point3d position){
@@ -86,7 +70,6 @@ public class Point3d extends Point {
 
   @Override
   public Point3d sub(Point p) {
-    NumberFactory nf=new NumberFactory();
     return sub(new Point3d(p.getX(), p.getY(), nf.create(0.0)));
   }
   public Point3d sub(Point3d p){
@@ -95,7 +78,6 @@ public class Point3d extends Point {
 
   @Override
   public Point3d diffPolar(Point p) {
-    NumberFactory nf=new NumberFactory();
     return diffPolar(new Point3d(p.getX(), p.getY(), nf.create(0.0)));
   }
   public Point3d diffPolar(Point3d p){
@@ -110,5 +92,12 @@ public class Point3d extends Point {
   @Override
   public Point3d times(double d) {
     return new Point3d(getX().times(d),getY().times(d),getZ().times(d));
+  }
+  
+  public static Point3d rand(NumberFactory nf, double max){
+    return rand(nf,0,max);
+  }
+  public static Point3d rand(NumberFactory nf, double min,double max){
+    return new Point3d(nf.rand(min,max),nf.rand(min,max),nf.rand(min,max));
   }
 }

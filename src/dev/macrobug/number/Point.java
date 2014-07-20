@@ -6,12 +6,11 @@
 
 package dev.macrobug.number;
 
-import dev.macrobug.galaxy.factory.NumberFactory;
+import dev.macrobug.number.factory.NumberFactory;
 
 /**
  *
  * @author sadjehwty
- * @param <T>
  */
 public abstract class Point{
   public abstract void translate(Point t);
@@ -19,6 +18,7 @@ public abstract class Point{
   public abstract Point sub(Point t);
   public abstract Number distanceSq(Point t);
   protected Number x,y;
+  protected NumberFactory nf;
   public final void setX(Number x){this.x=x;}
   public final void setY(Number y){this.y=y;}
   public final Number getX(){return x;}
@@ -26,22 +26,17 @@ public abstract class Point{
   public Point(Point t){
     x=t.getX();
     y=t.getY();
+    nf=t.nf;
   }
   public Point(Number x, Number y){
     this.x=x;
     this.y=y;
+    nf=new NumberFactory(x.getClass());
   }
-  public Point(){
-    NumberFactory nf=new NumberFactory();
+  public Point(NumberFactory nf){
+    this.nf=nf;
     x=nf.create(0.0);
     y=nf.create(0.0);
-  }
-  public Point(boolean rand){
-    this();
-    if(rand){
-      x=getX().rand();
-      y=getY().rand();
-    }
   }
   public abstract Point diffPolar(Point p);
   public abstract Point depolar();
